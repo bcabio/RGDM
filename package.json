@@ -1,0 +1,17 @@
+{
+  "name": "musicproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "midi-player-js": "^1.1.1",
+    "midi.js": "^0.3.1",
+    "scribbletune": "^0.9.1"
+  }
+}
