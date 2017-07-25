@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'main-view',
   template: 'main-view.template.html',
 })
-export class AppComponent  { 
-	name = 'Angular'; 
+export class MainViewComponent { 
+	name = 'Main View'; 
 
 }
