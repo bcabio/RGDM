@@ -1,13 +1,30 @@
-</!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-	<title> Hello World</title>
-</head>
-<body>
-<button class="button" onclick="play()">Play</button>
+  <head>
+    <title>Angular QuickStart</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
 
-<script src="src/index.min.js"></script>
-<script src="src/soundfont-player.min.js"></script>
-<script src="src/app.js"></script>
-</body>
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+
+    <!--Midi and soundfont players-->
+	<script src="static/js/index.min.js"></script>
+	<script src="static/js/soundfont-player.min.js"></script>
+
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <body>
+    <main-view>Loading AppComponent content here ...</main-view>
+
+    
+  </body>
 </html>

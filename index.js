@@ -1,4 +1,5 @@
 var express = require('express');
+var scribble = require('./scribbletune/src')
 
 const app = express();
 
@@ -6,7 +7,7 @@ app.use(express.static(__dirname));
 
 app.set('port', (process.env.PORT || 5000));
 
-app.get('/index', function(req, res){
+app.get('/', function(req, res){
   res.sendFile('index.html');
 });
 
