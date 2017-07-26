@@ -1,1 +1,6 @@
 /node_modules/
+/app/*.js
+/app/*/*.js
+*.map
+/scribbletune/
+main.js

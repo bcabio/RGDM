@@ -4,14 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "tsc": "tsc -w --noStrictGenericChecks",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@angular/common": "^4.0.3",
+    "@angular/compiler": "^4.0.3",
+    "@angular/core": "^4.0.3",
+    "@angular/forms": "~4.0.0",
+    "@angular/http": "~4.0.0",
+    "@angular/platform-browser": "^4.0.3",
+    "@angular/platform-browser-dynamic": "^4.0.3",
+    "@angular/router": "~4.0.0",
+    "angular-in-memory-web-api": "~0.3.0",
+    "btoa": "^1.1.2",
+    "core-js": "^2.4.1",
     "express": "^4.15.3",
+    "jsmidgen": "^0.1.5",
     "midi-player-js": "^1.1.1",
     "midi.js": "^0.3.1",
-    "scribbletune": "^0.9.1"
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.0.1",
+    "systemjs": "^0.19.40",
+    "typescript": "~2.1.0",
+    "zone.js": "^0.8.14"
   }
 }
