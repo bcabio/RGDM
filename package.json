@@ -14,10 +14,11 @@
     "@angular/compiler": "^4.0.3",
     "@angular/core": "^4.0.3",
     "@angular/forms": "~4.0.0",
-    "@angular/http": "~4.0.0",
+    "@angular/http": "^4.0.3",
     "@angular/platform-browser": "^4.0.3",
     "@angular/platform-browser-dynamic": "^4.0.3",
     "@angular/router": "~4.0.0",
+    "@types/node": "^8.0.17",
     "angular-in-memory-web-api": "~0.3.0",
     "btoa": "^1.1.2",
     "core-js": "^2.4.1",
@@ -27,8 +28,10 @@
     "midi.js": "^0.3.1",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.0.1",
+    "soundfont-player": "^0.10.6",
     "systemjs": "^0.19.40",
     "typescript": "~2.1.0",
+    "typings": "^2.1.1",
     "zone.js": "^0.8.14"
   }
 }
