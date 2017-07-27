@@ -30,8 +30,7 @@ let MainViewComponent = class MainViewComponent {
     }
     addTrack(midiString, soundFont) {
         Soundfont.instrument(this.ac, soundFont).then(function (instrument) {
-            console.log(typeof MidiPlayer.Player);
-            let player = MidiPlayer.Player(function (event) {
+            let player = new MidiPlayer.Player(function (event) {
                 if (event.name == 'Note on' && event.velocity > 0)
                     instrument.play(event.noteName, this._audioContext.currentTime, { gain: event.velocity / 100 });
             });

@@ -38,10 +38,11 @@ export class MainViewComponent {
       track.play();
     }
 	}
+
+  
   public addTrack(midiString: string, soundFont: string) {
     Soundfont.instrument(this.ac, soundFont).then( function(instrument: any) {
-      console.log(typeof MidiPlayer.Player);
-        let player = MidiPlayer.Player(function(event: any) {
+        let player = new MidiPlayer.Player(function(event: any) {
           if( event.name == 'Note on' && event.velocity > 0) 
             instrument.play(event.noteName, this._audioContext.currentTime, {gain: event.velocity/100});
         });
