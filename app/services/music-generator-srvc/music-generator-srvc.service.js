@@ -6,14 +6,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var MusicGeneratorService = (function () {
-    function MusicGeneratorService() {
-    }
-    MusicGeneratorService = __decorate([
-        core_1.Injectable()
-    ], MusicGeneratorService);
-    return MusicGeneratorService;
-}());
+const core_1 = require("@angular/core");
+let MusicGeneratorService = class MusicGeneratorService {
+};
+MusicGeneratorService = __decorate([
+    core_1.Injectable()
+], MusicGeneratorService);
 exports.MusicGeneratorService = MusicGeneratorService;
 //# sourceMappingURL=music-generator-srvc.service.js.map

@@ -1,5 +1,6 @@
 var MidiPlayer = require('MidiPlayer');
 var loadFile, loadDataUri, Player, Player2;
+console.log(window.AudioContext);
 var AudioContext = window.AudioContext || window.webkitAudioContext || false; 
 var ac = new AudioContext || new webkitAudioContext;
 var eventsDiv = document.getElementById('events');

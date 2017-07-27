@@ -6,24 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
+const core_1 = require("@angular/core");
 function getWindow() {
     return window;
 }
-var WindowRefSrvc = (function () {
-    function WindowRefSrvc() {
+let WindowRefSrvc = class WindowRefSrvc {
+    get nativeWindow() {
+        return getWindow();
     }
-    Object.defineProperty(WindowRefSrvc.prototype, "nativeWindow", {
-        get: function () {
-            return getWindow();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WindowRefSrvc = __decorate([
-        core_1.Injectable()
-    ], WindowRefSrvc);
-    return WindowRefSrvc;
-}());
+};
+WindowRefSrvc = __decorate([
+    core_1.Injectable()
+], WindowRefSrvc);
 exports.WindowRefSrvc = WindowRefSrvc;
 //# sourceMappingURL=window-ref-srvc.service.js.map
