@@ -50,10 +50,10 @@ let MainViewComponent = class MainViewComponent {
     createPlayer(midiString, soundFont) {
         let that = this;
         return new Promise((res, rej) => {
-            Soundfont.instrument(this.AudioContext, soundFont).then(function (instrument) {
+            Soundfont.instrument(this.AudioContext, soundFont).then((instrument) => {
                 let player;
-                let loadDataUri = function (dataUri) {
-                    player = new MidiPlayer.Player(function (event) {
+                let loadDataUri = (dataUri) => {
+                    player = new MidiPlayer.Player((event) => {
                         if (event.name == 'Note on' && event.velocity > 0)
                             instrument.play(event.noteName, that.AudioContext.currentTime, { gain: event.velocity / 100 });
                     });
@@ -63,7 +63,7 @@ let MainViewComponent = class MainViewComponent {
                 console.log('loading player' + player);
                 res(player);
             });
-        }).catch(function (err) {
+        }).catch((err) => {
             console.warn(err);
         });
     }

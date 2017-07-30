@@ -21,7 +21,6 @@ export class MainViewComponent {
 	private _window: any;
 	private AudioContext: any;
   private _testAudioContext: AudioContext;
-  // private ac: any;
   private tracks: Array<any>;
   private playersQ: Array<any>;
 
@@ -63,10 +62,10 @@ export class MainViewComponent {
   public createPlayer(midiString: string, soundFont: string) {
     let that = this;
     return new Promise((res, rej) => {
-      Soundfont.instrument(this.AudioContext, soundFont).then( function(instrument: any) {
+      Soundfont.instrument(this.AudioContext, soundFont).then((instrument: any) => {
         let player: any;
-        let loadDataUri = function(dataUri: string) {
-          player = new MidiPlayer.Player(function(event: any) {
+        let loadDataUri = (dataUri: string) => {
+          player = new MidiPlayer.Player((event: any) => {
             if(event.name == 'Note on' && event.velocity > 0) 
               instrument.play(event.noteName, that.AudioContext.currentTime, {gain: event.velocity/100});
           });
@@ -77,7 +76,7 @@ export class MainViewComponent {
         console.log('loading player' + player);
         res(player);
         });
-    }).catch(function(err: any) {
+    }).catch((err: any) => {
       console.warn(err);
     });
   }
