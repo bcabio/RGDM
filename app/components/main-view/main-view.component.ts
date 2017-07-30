@@ -23,15 +23,14 @@ export class MainViewComponent {
   private _testAudioContext: AudioContext;
   private ac: any;
   private tracks: Array<any>;
-  private players: Array<any>;
+  private playersQ: Array<any>;
 
 	constructor(windowRefSrvc: WindowRefSrvc) {
 		this._window = windowRefSrvc.nativeWindow;
     this.tracks = [];
 		this.AudioContext = this._window.AudioContext;
     this.ac = new this.AudioContext;
-    // this.tracks.push(this.addTrack(mario, guitarUrl));
-    // this.tracks.push(this.addTrack(chopin, guitarUrl));
+    this.playersQ = []
     this.tracks = [{
        'midiString': mario,
        'sf': guitarUrl 
@@ -40,41 +39,18 @@ export class MainViewComponent {
        'midiString': chopin,
        'sf': guitarUrl 
     }];
-    this.players = []
-    this.addTracks(this.tracks);
-    console.log(this.players);
-  }
 
-	public playMusic() {
-    // console.log(this.tracks);
-		for(let track in this.tracks) {
-      // console.log(track);
-    }
-	}
+    this.addTracks(this.tracks);
+  }
 
   public addTracks(t: Array<any>) {
-    // console.log(t);
     for(var x in t) {
-      // console.log(t[x]);
-      console.log(x);
-      this.createPlayer(t[x].midiString, t[x].sf);
+      this.playersQ.push(this.createPlayer(t[x].midiString, t[x].sf));
     }
-    // console.log(tempTracks);
-    console.log(this.players);
-    return Promise.all(this.players).then((values) => {
-      // console.log(t);
-      // console.log('here')
-      // console.log(values);
+    return Promise.all(this.playersQ).then((values) => {
       console.log(values);
-      console.log(this.players);
       console.log('done');
     });
-  }
-
-  public pushPlayer(player: any) {
-    this.players.push(player);
-    console.log(this.players);
-    console.log('here');
   }
 
   public getInstrument(soundFont: string) {
@@ -84,21 +60,21 @@ export class MainViewComponent {
   //backend will send json with { midiString: soundFont } after
   //generating from random numbers
   public createPlayer(midiString: string, soundFont: string) {
-    let player: any;
-    let that = this;
-    let loadDataUri: any;
-    Soundfont.instrument(this.ac, soundFont).then( function(instrument: any) {
-      loadDataUri = function(dataUri: string) {
-        console.log('player');
-        player = new MidiPlayer.Player(function(event: any) {
-          if( event.name == 'Note on' && event.velocity > 0) 
-            instrument.play(event.noteName, this._audioContext.currentTime, {gain: event.velocity/100});
+    return new Promise((res, rej) => {
+      Soundfont.instrument(this.ac, soundFont).then( function(instrument: any) {
+        let player: any;
+        let loadDataUri = function(dataUri: string) {
+          player = new MidiPlayer.Player(function(event: any) {
+            if(event.name == 'Note on' && event.velocity > 0) 
+              instrument.play(event.noteName, this._audioContext.currentTime, {gain: event.velocity/100});
+          });
+          player.loadDataUri(midiString);
+        }     
+
+        loadDataUri(soundFont);
+        console.log('loading player' + player);
+        res(player);
         });
-        player.loadDataUri(midiString);
-      }          
-      loadDataUri(soundFont);
-      that.pushPlayer(player);
-    }).then(function(){
     }).catch(function(err: any) {
       console.warn(err);
     });

@@ -3,5 +3,5 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class MusicGeneratorService {
-
+	
 }
