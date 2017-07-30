@@ -21,15 +21,13 @@ export class MainViewComponent {
 	private _window: any;
 	private AudioContext: any;
   private _testAudioContext: AudioContext;
-  private ac: any;
+  // private ac: any;
   private tracks: Array<any>;
   private playersQ: Array<any>;
 
 	constructor(windowRefSrvc: WindowRefSrvc) {
 		this._window = windowRefSrvc.nativeWindow;
-    this.tracks = [];
-		this.AudioContext = this._window.AudioContext;
-    this.ac = new this.AudioContext;
+		this.AudioContext = new this._window.AudioContext;
     this.playersQ = []
     this.tracks = [{
        'midiString': mario,
@@ -40,33 +38,37 @@ export class MainViewComponent {
        'sf': guitarUrl 
     }];
 
-    this.addTracks(this.tracks);
+    this.addTracks(this.tracks).then((playerArray) => {
+      this.playTracks(playerArray);
+    });
+  }
+
+  public playTracks(t: Array<any>) {
+    for(var x in t) {
+      console.log(t[x].play());
+    }
   }
 
   public addTracks(t: Array<any>) {
     for(var x in t) {
       this.playersQ.push(this.createPlayer(t[x].midiString, t[x].sf));
     }
-    return Promise.all(this.playersQ).then((values) => {
-      console.log(values);
-      console.log('done');
+    return Promise.all(this.playersQ).then((playerArray) => {
+      return playerArray;
     });
-  }
-
-  public getInstrument(soundFont: string) {
-    return Soundfont.instrument(this.ac, soundFont);
   }
 
   //backend will send json with { midiString: soundFont } after
   //generating from random numbers
   public createPlayer(midiString: string, soundFont: string) {
+    let that = this;
     return new Promise((res, rej) => {
-      Soundfont.instrument(this.ac, soundFont).then( function(instrument: any) {
+      Soundfont.instrument(this.AudioContext, soundFont).then( function(instrument: any) {
         let player: any;
         let loadDataUri = function(dataUri: string) {
           player = new MidiPlayer.Player(function(event: any) {
             if(event.name == 'Note on' && event.velocity > 0) 
-              instrument.play(event.noteName, this._audioContext.currentTime, {gain: event.velocity/100});
+              instrument.play(event.noteName, that.AudioContext.currentTime, {gain: event.velocity/100});
           });
           player.loadDataUri(midiString);
         }     

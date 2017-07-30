@@ -18,9 +18,7 @@ var chopin = 'data:audio/midi;base64,TVRoZAAAAAYAAQACAIBNVHJrAAACzAD/UQMPQkAAwAE
 let MainViewComponent = class MainViewComponent {
     constructor(windowRefSrvc) {
         this._window = windowRefSrvc.nativeWindow;
-        this.tracks = [];
-        this.AudioContext = this._window.AudioContext;
-        this.ac = new this.AudioContext;
+        this.AudioContext = new this._window.AudioContext;
         this.playersQ = [];
         this.tracks = [{
                 'midiString': mario,
@@ -30,30 +28,34 @@ let MainViewComponent = class MainViewComponent {
                 'midiString': chopin,
                 'sf': guitarUrl
             }];
-        this.addTracks(this.tracks);
+        this.addTracks(this.tracks).then((playerArray) => {
+            this.playTracks(playerArray);
+        });
+    }
+    playTracks(t) {
+        for (var x in t) {
+            console.log(t[x].play());
+        }
     }
     addTracks(t) {
         for (var x in t) {
             this.playersQ.push(this.createPlayer(t[x].midiString, t[x].sf));
         }
-        return Promise.all(this.playersQ).then((values) => {
-            console.log(values);
-            console.log('done');
+        return Promise.all(this.playersQ).then((playerArray) => {
+            return playerArray;
         });
-    }
-    getInstrument(soundFont) {
-        return Soundfont.instrument(this.ac, soundFont);
     }
     //backend will send json with { midiString: soundFont } after
     //generating from random numbers
     createPlayer(midiString, soundFont) {
+        let that = this;
         return new Promise((res, rej) => {
-            Soundfont.instrument(this.ac, soundFont).then(function (instrument) {
+            Soundfont.instrument(this.AudioContext, soundFont).then(function (instrument) {
                 let player;
                 let loadDataUri = function (dataUri) {
                     player = new MidiPlayer.Player(function (event) {
                         if (event.name == 'Note on' && event.velocity > 0)
-                            instrument.play(event.noteName, this._audioContext.currentTime, { gain: event.velocity / 100 });
+                            instrument.play(event.noteName, that.AudioContext.currentTime, { gain: event.velocity / 100 });
                     });
                     player.loadDataUri(midiString);
                 };
