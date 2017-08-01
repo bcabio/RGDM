@@ -39,20 +39,25 @@ export class MainViewComponent {
        'sf': guitarUrl 
     }];
 
-    this.getMusic(3).then(trackList => {
-      this.addTracks(trackList);
+    this.getMusic(3).then((trackList: Array<Track>) => {
+      this.addTracks(trackList).then((playerArray) => {
+        this.playTracks(playerArray);
+      });
     });
 
-    this.addTracks(this.tracks).then((playerArray) => {
-      // this.playTracks(playerArray);
-      console.log(this.getMusic(3));
-    });
+    // this.addTracks(this.tracks).then((playerArray) => {
+    //   // this.playTracks(playerArray);
+    //   console.log(this.getMusic(3));
+    // });
   }
 
   public getMusic(musicFactor: number) {
     return new Promise((res, rej) => {
       return this.musicGeneratorSrvc.getMusic(musicFactor).then(
-        value => res(value)
+        (value: any) => {
+          console.log(value);
+          res(value)
+          }
         )
       }
     );
@@ -65,6 +70,9 @@ export class MainViewComponent {
   }
 
   public addTracks(t: Array<any>) {
+    console.log(t);
+    console.log(typeof t);
+    console.log(t.length);
     for(var x in t) {
       this.playersQ.push(this.createPlayer(t[x].midiString, t[x].sf));
     }

@@ -1,6 +1,8 @@
-var express = require('express');
-var scribble = require('./../scribbletune/src');
-var bassEngine = require('./generators/bass-generator')
+const express = require('express');
+const scribble = require('./../scribbletune/src');
+
+const bassEngine = require('./generators/bass-generator');
+const percussionEngine = require('./generators/percussion-generator');
 
 // console.log(bassEngine);
 
@@ -16,8 +18,8 @@ app.get('/', function(req, res) {
 
 app.get('/generateMusic', function(req, res) {
 	res.send({
-		'bassMidiTrack': bassEngine.generateBassLine(),
-		'percussionMidiTrack': 
+		'bassMidiTrack': bassEngine.generateBassTrack()
+		// 'percussionMidiTrack': percussionEngine.generatePercussionTrack()
 	});
 });
 

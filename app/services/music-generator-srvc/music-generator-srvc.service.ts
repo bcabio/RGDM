@@ -23,12 +23,13 @@ export class MusicGeneratorSrvc {
 		return this.http.get('/generateMusic', options)
 			.toPromise()
 			.then(response => {
-				for(var x in response.json()) {
-					console.log(x);
+				let tempJson = response.json()
+				let tempArr: Array<Track> = [];
+				for (var x in tempJson) {
+					tempArr.push(tempJson[x]);
 				}
-				response.json() as Track});
-
-		
+				return tempArr as Array<Track>
+			});
 	}
 }
 
