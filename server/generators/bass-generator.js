@@ -20,7 +20,6 @@ module.exports.generateBassTrack = function() {
 	let bassClip = scribble.clip({
 		notes: ['e2'],
 		pattern: 'x-------'.repeat(4)
-		// pattern: 'x___x-x-x___x___'.repeat(4)
 	});
 	return { 
 		'midiString': scribble.toBase64String(bassClip),
